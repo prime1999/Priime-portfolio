@@ -159,7 +159,7 @@ const AnimatedInput = () => {
 
   // Render the input container with glassmorphic styling
   return (
-    <div className="relative mt-8 flex items-center gap-2 bg-black w-120 h-9 rounded-lg font-poppins">
+    <div className="relative mt-12 lg:mt-8 flex items-center gap-2 bg-black w-90 lg:w-120 h-9 rounded-lg font-poppins">
       {/* Text input field with animated placeholder */}
       <Input
         type="text"
@@ -181,10 +181,9 @@ const AnimatedInput = () => {
 
 const page = () => {
   return (
-    <main className="h-full">
-      <Topbar />
-      <section className="w-full h-full">
-        <div className="mt-28 flex flex-col items-center justify-center font-playwrite">
+    <main className="h-screen flex items-center justify-center">
+      <section className="w-full h-full flex items-center justify-center">
+        <div className="h-full relative flex flex-col items-center justify-center font-playwrite">
           <div className="flex flex-col items-center justify-center gap-2 text-white">
             <AnimatedText
               text="Hi there, I'm Priime. Welcome to my"
@@ -198,7 +197,7 @@ const page = () => {
             />
             <AnimatedInput />
           </div>
-          <div className="mt-24 flex items-center gap-4 bg-white/10 backdrop-blur-md p-2 rounded-2xl shadow-lg overflow-visible">
+          <div className="absolute bottom-10 flex items-center gap-4 bg-white/10 backdrop-blur-md p-2 rounded-2xl shadow-lg overflow-visible">
             <ProjectsModal
               initialViewId="projects"
               trigger={

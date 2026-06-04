@@ -122,8 +122,8 @@ const DraggableModal = ({
                 onMouseDown={(e) => e.stopPropagation()}
               >
                 <div className="flex items-center gap-3">
-                  <div className="grid size-8 place-items-center rounded-lg border border-blue-300/20 bg-blue-400/10">
-                    <div className="size-3 rounded-full bg-blue-300/80" />
+                  <div className="grid size-8 place-items-center rounded-lg border border-blue-500 bg-blue-400/10">
+                    <div className="size-3 rounded-full bg-blue-500" />
                   </div>
                   <div className="leading-tight">
                     <div className="text-sm font-semibold text-white">

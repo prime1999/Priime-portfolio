@@ -110,7 +110,7 @@ const ProjectsModal = ({
       <div className="border-b border-white/10 bg-white/5 px-4 py-3 backdrop-blur-2xl">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <h2 className="text-sm font-fjalla-one font-semibold tracking-widest text-white">
+            <h2 className="text-sm font-fjalla-one tracking-widest text-white">
               {selectedFolder?.label} Projects
             </h2>
           </div>

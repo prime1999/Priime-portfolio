@@ -8,3 +8,11 @@ export type Project = {
 export type ProjectDetailModalProps = {
   project: Project;
 };
+
+export type ExplorerView = {
+  id: string;
+  label: string;
+  icon?: React.ReactNode;
+  content: React.ReactNode;
+  sidebarContent?: React.ReactNode;
+};

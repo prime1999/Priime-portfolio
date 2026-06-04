@@ -22,11 +22,8 @@ export default function ProjectDetailModal({
         <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/25 to-transparent" />
       </div>
 
-      <div className="flex flex-1 flex-col gap-6 p-6">
+      <div className="flex flex-1 flex-col gap-2 p-6">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300/70">
-            Project Details
-          </p>
           <h1 className="font-fjalla-one mt-2 text-3xl font-bold text-white">
             {project.title}
           </h1>
@@ -41,7 +38,7 @@ export default function ProjectDetailModal({
             href={project.url}
             target="_blank"
             rel="noreferrer"
-            className="p-2 text-xs font-poppins rounded-xl font-semibold bg-blue-500 text-slate-950 hover:bg-blue-400"
+            className="p-2 text-xs font-poppins rounded-xl font-semibold bg-blue-500 text-slate-800 hover:bg-blue-400"
           >
             View Project
           </Link>

@@ -163,7 +163,7 @@ const AnimatedInput = () => {
       {/* Text input field with animated placeholder */}
       <Input
         type="text"
-        placeholder={displayedPlaceholder} // Uses the animating placeholder text
+        placeholder={displayedPlaceholder}
         className="w-11/12 text-white text-xs font-semibold"
       />
       {/* Send button positioned at the right end of the input */}
@@ -198,20 +198,29 @@ const page = () => {
             <AnimatedInput />
           </div>
           <div className="absolute bottom-10 flex items-center gap-4 bg-white/10 backdrop-blur-md p-2 rounded-2xl shadow-lg overflow-visible">
-            <ProjectsModal
-              initialViewId="projects"
-              trigger={
-                <button className="cursor-pointer duration-300 hover:-translate-y-5 hover:scale-90">
-                  <Image
-                    src={projects}
-                    alt="Projects"
-                    width={50}
-                    height={50}
-                    placeholder="blur"
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div>
+                  <ProjectsModal
+                    initialViewId="projects"
+                    trigger={
+                      <button className="cursor-pointer duration-300 hover:-translate-y-5 hover:scale-90">
+                        <Image
+                          src={projects}
+                          alt="Projects"
+                          width={50}
+                          height={50}
+                          placeholder="blur"
+                        />
+                      </button>
+                    }
                   />
-                </button>
-              }
-            />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="font-poppins text-xs">Projects</p>
+              </TooltipContent>
+            </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
                 <div>
@@ -232,7 +241,7 @@ const page = () => {
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Contact</p>
+                <p className="font-poppins text-xs">Contact</p>
               </TooltipContent>
             </Tooltip>
             <Tooltip>
@@ -255,7 +264,7 @@ const page = () => {
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Resume</p>
+                <p className="font-poppins text-xs">Resume</p>
               </TooltipContent>
             </Tooltip>
           </div>

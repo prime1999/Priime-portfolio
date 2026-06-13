@@ -3,7 +3,14 @@
 // react-imports
 import { useMemo, useState, type ReactElement } from "react";
 // icons-imports
-import { CircleAlert, FileText, Folder, Mail, FolderOpen } from "lucide-react";
+import {
+  CircleAlert,
+  FileText,
+  Folder,
+  Mail,
+  FolderOpen,
+  Info,
+} from "lucide-react";
 // lib-imports
 import { projectFolders } from "@/lib/projects";
 // draggable modal components imports
@@ -16,15 +23,22 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 // types-imports
 import { ExplorerView } from "@/lib/types";
+import ContactViewBody from "./ContactViewBody";
+import About from "./About";
 
 // custom-types
 type ProjectsModalProps = {
   trigger: ReactElement<{
     onClick?: React.MouseEventHandler<HTMLElement>;
   }>;
-  initialViewId?: "projects" | "contact" | "resume";
+  initialViewId?: "projects" | "contact" | "resume" | "about";
 };
 
 const ProjectsModal = ({
@@ -72,31 +86,36 @@ const ProjectsModal = ({
   const projectsSidebarContent = (
     <Accordion type="single" collapsible defaultValue="project-folders">
       <AccordionItem value="project-folders" className="border-b-0">
-        <AccordionTrigger className="px-2 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 hover:no-underline">
+        <AccordionTrigger className="hidden px-2 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400 hover:no-underline md:flex">
           Projects
         </AccordionTrigger>
         <AccordionContent className="pb-0">
-          <div className="space-y-1 pl-1">
+          <div className="grid grid-cols-2 gap-2 pl-1 md:block md:space-y-1">
             {projectFolders.map((folder) => {
               const isActive = folder.id === selectedFolderId;
+              const FolderIcon = folder.icon;
 
               return (
-                <button
-                  key={folder.id}
-                  type="button"
-                  onClick={() => handleFolderSelect(folder.id)}
-                  className={
-                    isActive
-                      ? "flex w-full items-center gap-2 bg-gray-800/90 cursor-pointer px-3 py-2 text-left text-sm text-cyan-100"
-                      : "flex w-full items-center gap-2 cursor-pointer px-3 py-2 text-left text-sm text-slate-300 transition hover:bg-white/5 hover:text-white"
-                  }
-                >
-                  <Folder
-                    fill="blue"
-                    className="size-4 shrink-0 text-cyan-300"
-                  />
-                  <span>{folder.label}</span>
-                </button>
+                <Tooltip key={folder.id}>
+                  <TooltipTrigger asChild>
+                    <button
+                      type="button"
+                      aria-label={folder.label}
+                      onClick={() => handleFolderSelect(folder.id)}
+                      className={
+                        isActive
+                          ? "flex w-full items-center gap-2 rounded-lg bg-gray-800/90 px-2 py-2 text-left text-sm text-blue-100 md:px-3"
+                          : "flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-slate-300 transition cursor-pointer hover:bg-white/5 hover:text-white md:px-3"
+                      }
+                    >
+                      <span className="grid size-9 shrink-0 place-items-center rounded-lg border border-white/10 bg-white/5 text-blue-300">
+                        <FolderIcon className="size-4" />
+                      </span>
+                      <span className="hidden md:inline">{folder.label}</span>
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">{folder.label}</TooltipContent>
+                </Tooltip>
               );
             })}
           </div>
@@ -175,7 +194,7 @@ const ProjectsModal = ({
       <div className="flex items-center justify-between border-t border-white/10 bg-slate-900/70 px-4 py-2 text-xs text-slate-400">
         <span>{selectedFolder?.items.length} objects</span>
         <span className="flex items-center gap-2">
-          <CircleAlert className="size-3.5 text-cyan-300/70" />
+          <CircleAlert className="size-3.5 text-blue-300/70" />
           Ready
         </span>
       </div>
@@ -185,7 +204,7 @@ const ProjectsModal = ({
   const contactViewBody = (
     <div className="flex h-full min-h-[min(82vh,760px)] flex-col p-6 text-slate-100">
       <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
-        <p className="text-xs uppercase tracking-[0.24em] text-cyan-300/80">
+        <p className="text-xs uppercase tracking-[0.24em] text-blue-300/80">
           Contact
         </p>
         <h2 className="mt-2 text-2xl font-semibold text-white">Reach Me</h2>
@@ -200,7 +219,7 @@ const ProjectsModal = ({
   const resumeViewBody = (
     <div className="flex h-full min-h-[min(82vh,760px)] flex-col p-6 text-slate-100">
       <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
-        <p className="text-xs uppercase tracking-[0.24em] text-cyan-300/80">
+        <p className="text-xs uppercase tracking-[0.24em] text-blue-300/80">
           Resume
         </p>
         <h2 className="mt-2 text-2xl font-semibold text-white">
@@ -215,9 +234,15 @@ const ProjectsModal = ({
 
   const views: ExplorerView[] = [
     {
+      id: "about",
+      label: "About",
+      icon: <Info fill="blue" className="size-4 text-slate-300" />,
+      content: <About />,
+    },
+    {
       id: "projects",
       label: "Projects",
-      icon: <Folder fill="blue" className="size-4 text-cyan-300" />,
+      icon: <Folder fill="blue" className="size-4 text-blue-300" />,
       content: projectViewBody,
       sidebarContent: projectsSidebarContent,
     },
@@ -225,7 +250,7 @@ const ProjectsModal = ({
       id: "contact",
       label: "Contact",
       icon: <Mail fill="blue" className="size-4 text-slate-300" />,
-      content: contactViewBody,
+      content: <ContactViewBody />,
     },
     {
       id: "resume",

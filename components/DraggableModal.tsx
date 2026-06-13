@@ -10,6 +10,12 @@ import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
 // Import utility function for conditional class names
 import { cn } from "@/lib/utils";
+// shadcn-imports
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 // types-imports
 import { ExplorerView } from "@/lib/types";
 
@@ -141,9 +147,9 @@ const DraggableModal = ({
                 </button>
               </div>
 
-              <div className="grid h-[min(82vh,760px)] grid-cols-[220px_minmax(0,1fr)] overflow-hidden">
-                <aside className="border-r border-white/10 bg-black/10 backdrop-blur-xl p-3">
-                  <div>
+              <div className="flex h-[min(82vh,760px)] flex-col overflow-hidden md:grid md:grid-cols-[220px_minmax(0,1fr)]">
+                <aside className="border-b border-white/10 bg-black/10 backdrop-blur-xl p-2 md:border-b-0 md:border-r md:p-3">
+                  <div className="hidden md:block">
                     <div className="mb-2 flex items-center gap-2 px-2 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
                       <Folder
                         fill="blue"
@@ -161,7 +167,7 @@ const DraggableModal = ({
                             type="button"
                             onClick={() => setActiveViewId(view.id)}
                             className={cn(
-                              "flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition cursor-pointer",
+                              "flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-left text-sm transition",
                               isActive
                                 ? "bg-gray-800/90 text-white"
                                 : "text-slate-300 hover:bg-white/5 hover:text-white",
@@ -182,6 +188,56 @@ const DraggableModal = ({
                     </div>
                     {activeView?.sidebarContent ? (
                       <div className="mt-3 border-t border-white/10 pt-3">
+                        {activeView.sidebarContent}
+                      </div>
+                    ) : null}
+                  </div>
+
+                  <div className="flex flex-col gap-2 md:hidden">
+                    <div className="flex items-center justify-between gap-2 px-1 pt-1">
+                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+                        <Folder
+                          fill="blue"
+                          className="size-3.5 text-cyan-300/80"
+                        />
+                        <span className="sr-only">{sidebarTitle}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        {views.map((view) => {
+                          const isActive = view.id === activeView?.id;
+
+                          return (
+                            <Tooltip key={view.id}>
+                              <TooltipTrigger asChild>
+                                <button
+                                  type="button"
+                                  aria-label={view.label}
+                                  onClick={() => setActiveViewId(view.id)}
+                                  className={cn(
+                                    "grid size-10 place-items-center rounded-lg border text-left text-sm transition",
+                                    isActive
+                                      ? "border-blue-400/40 bg-blue-400/10 text-white"
+                                      : "border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white",
+                                  )}
+                                >
+                                  <span className="shrink-0 text-xs">
+                                    {view.icon ?? (
+                                      <Folder fill="blue" className="size-4" />
+                                    )}
+                                  </span>
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent side="bottom">
+                                {view.label}
+                              </TooltipContent>
+                            </Tooltip>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {activeView?.sidebarContent ? (
+                      <div className="rounded-xl border border-white/10 bg-white/5 p-2">
                         {activeView.sidebarContent}
                       </div>
                     ) : null}

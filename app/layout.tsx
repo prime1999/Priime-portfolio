@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Fjalla_One, Playwrite_CA } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   variable: "--poppins",
@@ -62,6 +63,7 @@ export default function RootLayout({
             {children}
           </div>
         </TooltipProvider>
+        <Toaster />
       </body>
     </html>
   );

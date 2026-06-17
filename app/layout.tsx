@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Poppins, Fjalla_One, Playwrite_CA } from "next/font/google";
+import {
+  Poppins,
+  Fjalla_One,
+  Playwrite_CA,
+  Georama,
+  Berkshire_Swash,
+} from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "sonner";
+import Navbar from "@/components/layouts/Navbar";
 
 const poppins = Poppins({
   variable: "--poppins",
@@ -15,8 +22,17 @@ const fjallaOne = Fjalla_One({
   subsets: ["latin"],
   weight: ["400"],
 });
+const georama = Georama({
+  variable: "--georama",
+  subsets: ["latin"],
+});
 const playwrite = Playwrite_CA({
   variable: "--playwrite",
+  weight: ["400"],
+});
+const berkshireSwash = Berkshire_Swash({
+  variable: "--berkshire-swash",
+  subsets: ["latin"],
   weight: ["400"],
 });
 
@@ -42,7 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${fjallaOne.variable} ${playwrite.variable} h-full antialiased`}
+      className={`${poppins.variable} ${fjallaOne.variable} ${playwrite.variable} ${georama.variable} ${berkshireSwash.variable} h-full antialiased`}
     >
       <body className="relative min-h-full flex flex-col w-screen overflow-x-hidden bg-black">
         <TooltipProvider>
@@ -60,6 +76,7 @@ export default function RootLayout({
             <div className="background-slideshow__overlay" />
           </div>
           <div className="relative z-10 flex min-h-full flex-col">
+            <Navbar />
             {children}
           </div>
         </TooltipProvider>

@@ -10,6 +10,8 @@ import {
   Mail,
   FolderOpen,
   Info,
+  Cpu,
+  Quote,
 } from "lucide-react";
 // lib-imports
 import { projectFolders } from "@/lib/projects";
@@ -32,13 +34,21 @@ import {
 import { ExplorerView } from "@/lib/types";
 import ContactViewBody from "./ContactViewBody";
 import About from "./About";
+import Skills from "./Skills";
+import Testimonials from "./Testimonials";
 
 // custom-types
 type ProjectsModalProps = {
   trigger: ReactElement<{
     onClick?: React.MouseEventHandler<HTMLElement>;
   }>;
-  initialViewId?: "projects" | "contact" | "resume" | "about";
+  initialViewId?:
+    | "projects"
+    | "contact"
+    | "resume"
+    | "about"
+    | "skills"
+    | "testimonials";
 };
 
 const ProjectsModal = ({
@@ -53,7 +63,8 @@ const ProjectsModal = ({
     { projectTitle: string; projectUrl: string }[]
   >([]);
 
-  // memo to handle the currently selected project folder based on selectedFolderId, this will optimize performance by avoiding unnecessary calculations on re-renders
+  // memo to handle the currently selected project folder based on selectedFolderId,
+  // this will optimize performance by avoiding unnecessary calculations on re-renders
   const selectedFolder = useMemo(
     () =>
       projectFolders.find((folder) => folder.id === selectedFolderId) ??
@@ -61,7 +72,8 @@ const ProjectsModal = ({
     [selectedFolderId],
   );
 
-  // functions to open project detail modals, they will update the openProjectModals state to keep track of which project modals are currently open
+  // functions to open project detail modals, they will update the openProjectModals state to keep
+  // track of which project modals are currently open
   const openProjectModal = (project: any) => {
     setOpenProjectModals((prev) => [
       ...prev,
@@ -74,7 +86,8 @@ const ProjectsModal = ({
       prev.filter((p) => p.projectUrl !== projectUrl),
     );
   };
-  // function to handle the selection of a project folder, it will update the selectedFolderId state to the id of the selected folder
+  // function to handle the selection of a project folder, it will update the
+  // selectedFolderId state to the id of the selected folder
   const handleFolderSelect = (folderId: string) => {
     const nextFolder =
       projectFolders.find((folder) => folder.id === folderId) ??
@@ -140,7 +153,7 @@ const ProjectsModal = ({
       </div>
 
       <div className="scrollbar-hidden flex-1 overflow-auto p-4">
-        <div className="flex">
+        <div className="w-full flex-wrap flex gap-4">
           {selectedFolder?.items.map((project) => {
             const isOpen = openProjectModals.some(
               (p) => p.projectUrl === project.url,
@@ -149,7 +162,7 @@ const ProjectsModal = ({
             return (
               <div
                 key={project.title}
-                className="w-full flex flex-col items-center gap-3 p-4"
+                className="flex flex-col items-center gap-3 p-4 flex-shrink-0"
                 onDoubleClick={() => openProjectModal(project)}
               >
                 <div className="cursor-pointer">
@@ -201,36 +214,21 @@ const ProjectsModal = ({
     </div>
   );
 
-  const contactViewBody = (
-    <div className="flex h-full min-h-[min(82vh,760px)] flex-col p-6 text-slate-100">
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
-        <p className="text-xs uppercase tracking-[0.24em] text-blue-300/80">
-          Contact
-        </p>
-        <h2 className="mt-2 text-2xl font-semibold text-white">Reach Me</h2>
-        <p className="mt-3 max-w-xl text-sm leading-6 text-slate-300/85">
-          Use this section for your contact channels. You can replace this with
-          your form or social links panel.
-        </p>
-      </div>
-    </div>
-  );
-
-  const resumeViewBody = (
-    <div className="flex h-full min-h-[min(82vh,760px)] flex-col p-6 text-slate-100">
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
-        <p className="text-xs uppercase tracking-[0.24em] text-blue-300/80">
-          Resume
-        </p>
-        <h2 className="mt-2 text-2xl font-semibold text-white">
-          Resume Preview
-        </h2>
-        <p className="mt-3 max-w-xl text-sm leading-6 text-slate-300/85">
-          Add your resume embed or downloadable file action here.
-        </p>
-      </div>
-    </div>
-  );
+  // const resumeViewBody = (
+  //   <div className="flex h-full min-h-[min(82vh,760px)] flex-col p-6 text-slate-100">
+  //     <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
+  //       <p className="text-xs uppercase tracking-[0.24em] text-blue-300/80">
+  //         Resume
+  //       </p>
+  //       <h2 className="mt-2 text-2xl font-semibold text-white">
+  //         Resume Preview
+  //       </h2>
+  //       <p className="mt-3 max-w-xl text-sm leading-6 text-slate-300/85">
+  //         Add your resume embed or downloadable file action here.
+  //       </p>
+  //     </div>
+  //   </div>
+  // );
 
   const views: ExplorerView[] = [
     {
@@ -253,11 +251,23 @@ const ProjectsModal = ({
       content: <ContactViewBody />,
     },
     {
-      id: "resume",
-      label: "Resume",
-      icon: <FileText fill="blue" className="size-4 text-slate-300" />,
-      content: resumeViewBody,
+      id: "skills",
+      label: "Skills",
+      icon: <Cpu fill="blue" className="size-4 text-slate-300" />,
+      content: <Skills />,
     },
+    {
+      id: "testimonials",
+      label: "Testimonials",
+      icon: <Quote fill="blue" className="size-4 text-slate-300" />,
+      content: <Testimonials />,
+    },
+    // {
+    //   id: "resume",
+    //   label: "Resume",
+    //   icon: <FileText fill="blue" className="size-4 text-slate-300" />,
+    //   content: resumeViewBody,
+    // },
   ];
 
   return (

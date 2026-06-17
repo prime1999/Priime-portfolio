@@ -2,7 +2,7 @@ import type { StaticImageData } from "next/image";
 import type { LucideIcon } from "lucide-react";
 
 import { Blocks, MonitorSmartphone } from "lucide-react";
-import { AudioLift, SendMail, TimeLy } from "./WebTwo";
+import { AudioLift, SendMail, TimeLy, Aegis, XDeep, AegisPage } from "./WebTwo";
 import { Cinder, CreloLoan, CreloPay } from "./WebThree";
 
 export type ProjectItem = {
@@ -37,7 +37,10 @@ export const projectFolders: ProjectFolder[] = [
     items: [
       { title: "Send Mail", ...SendMail },
       { title: "Audio Lift", ...AudioLift },
-      { title: "Time Ly", ...TimeLy },
+      { title: "TimeLy", ...TimeLy },
+      { title: "XDeep", ...XDeep },
+      { title: "Aegis", ...Aegis },
+      { title: "Aegis Page", ...AegisPage },
     ],
   },
 ];

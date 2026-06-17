@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Mail } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { FaGithub, FaXTwitter, FaLinkedin } from "react-icons/fa6";
 import { toast } from "sonner";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -86,18 +87,32 @@ const ContactViewBody = () => {
         </h1>
         <hr className="border-1 border-gray-500 mt-2" />
         <div className="my-4">
+          <div className="flex items-center justify-between my-4">
+            {" "}
+            <div className="flex items-center gap-2 mb-2 p-2 rounded-md bg-blue-500/10 hover:bg-blue-500/20 transition duration-300">
+              <Link href="https://www.linkedin.com/in/moshood-yakubu-b7a7b3256/">
+                <FaLinkedin className="text-lg text-blue-300" />
+              </Link>
+            </div>
+            <div className="flex items-center gap-2 mb-2 p-2 rounded-md bg-red-500/10 hover:bg-red-500/20 transition duration-300">
+              <Link href="https://x.com/iminent_24">
+                <FaXTwitter className="text-lg text-white" />
+              </Link>
+            </div>
+            <div className="flex items-center gap-2 mb-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition duration-300">
+              <Link href="https://github.com/prime1999">
+                <FaGithub className="text-lg text-white" />
+              </Link>
+            </div>
+            <div className="flex items-center gap-2 mb-2 p-2 rounded-md bg-green-500/10 hover:bg-green-500/20 transition duration-300">
+              <Link href="https://wa.me/2347068280718?text=Hi%20Priime%2C%20I%20came%20from%20your%20portfolio">
+                <FaWhatsapp className="text-lg text-green-300" />
+              </Link>
+            </div>
+          </div>
           <div className="flex items-center gap-2 mb-2">
             <Mail className="size-4 text-blue-300" />
             <p className="text-xs text-white/60">codingprime23@gmail.com</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <FaWhatsapp className="text-lg text-blue-300" />
-            <Link
-              href="https://wa.me/2347068280718?text=Hi%20Priime%2C%20I%20came%20from%20your%20portfolio"
-              className="text-xs text-white/60 duration-500 transition hover:text-white/90"
-            >
-              Chat with priime on WhatsApp
-            </Link>
           </div>
         </div>
 

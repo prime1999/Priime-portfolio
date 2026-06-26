@@ -1,8 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect } from "react";
 // lucide imports for UI components
 import { CircleUserRound } from "lucide-react";
+// images-import
+import logo from "@/public/assets/images/prime_logo_white.png";
 
 const Navbar = () => {
   const [currentTime, setCurrentTime] = useState("");
@@ -45,9 +48,9 @@ const Navbar = () => {
   if (!currentTime) return null;
   return (
     <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-2 md:px-8 py-2 backdrop-blur-xl shadow-sm">
-      <h1 className="font-berkshire-swash text-white border-b-2 border-white">
-        Prime .
-      </h1>
+      <div>
+        <Image src={logo} alt="prime logo" width={50} height={25} />
+      </div>
       <div className="flex items-center gap-2 md:gap-4">
         <CircleUserRound size={15} className="text-white" />
         <h6 className="font-poppins tracking-wider text-white text-xs">
